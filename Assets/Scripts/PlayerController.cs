@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     
     public float mouseSensitivity = 1f;
     public float moveSpeed = 5f;
+    public float runSpeed = 8f;
     
     public bool invertLook = false;
 
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseInput;
     
     private float verticalRotStore;
+    private float activeMoveSpeed;
 
     private void Start()
     {
@@ -41,7 +43,17 @@ public class PlayerController : MonoBehaviour
         }
 
         moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-        movement = ((transform.forward * moveDir.z) + (transform.right * moveDir.x)).normalized;
-        charCon.Move(movement * moveSpeed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            activeMoveSpeed = runSpeed;
+        }
+        else
+        {
+            activeMoveSpeed = moveSpeed;
+        }
+
+        movement = ((transform.forward * moveDir.z) + (transform.right * moveDir.x)).normalized * activeMoveSpeed;
+        charCon.Move(movement * Time.deltaTime);
     }
 }
