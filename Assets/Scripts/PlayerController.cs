@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public CharacterController charCon;
     public Transform viewPoint;
     
     public float mouseSensitivity = 1f;
@@ -41,6 +42,6 @@ public class PlayerController : MonoBehaviour
 
         moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
         movement = ((transform.forward * moveDir.z) + (transform.right * moveDir.x)).normalized;
-        transform.position += movement * moveSpeed * Time.deltaTime;
+        charCon.Move(movement * moveSpeed * Time.deltaTime);
     }
 }
