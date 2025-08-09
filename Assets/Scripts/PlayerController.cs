@@ -4,9 +4,15 @@ public class PlayerController : MonoBehaviour
 {
     public Transform viewPoint;
     public float mouseSensitivity = 1f;
+    public bool invertLook = false;
 
     private float verticalRotStore;
     private Vector2 mouseInput;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     private void Update()
     {
@@ -16,6 +22,14 @@ public class PlayerController : MonoBehaviour
 
         verticalRotStore += mouseInput.y;
         verticalRotStore = Mathf.Clamp(verticalRotStore, -60f, 60f);
-        viewPoint.rotation = Quaternion.Euler(verticalRotStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+        
+        if (invertLook)
+        {
+            viewPoint.rotation = Quaternion.Euler(verticalRotStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+        }
+        else
+        {
+            viewPoint.rotation = Quaternion.Euler(-verticalRotStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+        }
     }
 }
