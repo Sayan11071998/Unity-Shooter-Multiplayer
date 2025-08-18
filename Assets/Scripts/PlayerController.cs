@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     
     public bool invertLook = false;
 
+    private Camera cam;
+
     private Vector3 moveDir;
     private Vector3 movement;
 
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
+        cam = Camera.main;
     }
 
     private void Update()
@@ -55,5 +59,11 @@ public class PlayerController : MonoBehaviour
 
         movement = ((transform.forward * moveDir.z) + (transform.right * moveDir.x)).normalized * activeMoveSpeed;
         charCon.Move(movement * Time.deltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        cam.transform.position = viewPoint.position;
+        cam.transform.rotation = viewPoint.rotation;
     }
 }
