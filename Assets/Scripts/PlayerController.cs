@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     public CharacterController charCon;
     public Transform viewPoint;
+    public Transform groundCheckPoint;
+    public LayerMask groundLayers;
     
     public float mouseSensitivity = 1f;
     public float moveSpeed = 5f;
@@ -22,6 +24,8 @@ public class PlayerController : MonoBehaviour
     
     private float verticalRotStore;
     private float activeMoveSpeed;
+
+    private bool isGrounded;
 
     private void Start()
     {
@@ -69,7 +73,9 @@ public class PlayerController : MonoBehaviour
             movement.y = 0f;
         }
 
-        if (Input.GetButtonDown("Jump"))
+        isGrounded = Physics.Raycast(groundCheckPoint.position, Vector3.down, 0.25f, groundLayers);
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             movement.y = jumpForce;
         }
