@@ -1252,6 +1252,8 @@ MonoBehaviour:
   mouseSensitivity: 1
   moveSpeed: 5
   runSpeed: 8
+  jumpForce: 12
+  gravityMod: 2.5
   invertLook: 0
 --- !u!143 &1264991897
 CharacterController:

@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 1f;
     public float moveSpeed = 5f;
     public float runSpeed = 8f;
+    public float jumpForce = 12f;
+    public float gravityMod = 2.5f;
     
     public bool invertLook = false;
 
@@ -67,7 +69,12 @@ public class PlayerController : MonoBehaviour
             movement.y = 0f;
         }
 
-        movement.y += Physics.gravity.y * Time.deltaTime;
+        if (Input.GetButtonDown("Jump"))
+        {
+            movement.y = jumpForce;
+        }
+
+        movement.y += Physics.gravity.y * Time.deltaTime * gravityMod;
 
         charCon.Move(movement * Time.deltaTime);
     }
