@@ -44,24 +44,16 @@ public class PlayerController : MonoBehaviour
         verticalRotStore = Mathf.Clamp(verticalRotStore, -60f, 60f);
         
         if (invertLook)
-        {
             viewPoint.rotation = Quaternion.Euler(verticalRotStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
-        }
         else
-        {
             viewPoint.rotation = Quaternion.Euler(-verticalRotStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
-        }
 
         moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
         if (Input.GetKey(KeyCode.LeftShift))
-        {
             activeMoveSpeed = runSpeed;
-        }
         else
-        {
             activeMoveSpeed = moveSpeed;
-        }
 
         float yVel = movement.y;
 
@@ -69,16 +61,12 @@ public class PlayerController : MonoBehaviour
         movement.y = yVel;
 
         if (charCon.isGrounded)
-        {
             movement.y = 0f;
-        }
 
         isGrounded = Physics.Raycast(groundCheckPoint.position, Vector3.down, 0.25f, groundLayers);
 
         if (Input.GetButtonDown("Jump") && isGrounded)
-        {
             movement.y = jumpForce;
-        }
 
         movement.y += Physics.gravity.y * Time.deltaTime * gravityMod;
 
@@ -91,9 +79,7 @@ public class PlayerController : MonoBehaviour
         else if (Cursor.lockState == CursorLockMode.None)
         {
             if (Input.GetMouseButtonDown(0))
-            {
                 Cursor.lockState = CursorLockMode.Locked;
-            }
         }
     }
 
