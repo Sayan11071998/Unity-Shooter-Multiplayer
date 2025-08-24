@@ -72,6 +72,9 @@ public class PlayerController : MonoBehaviour
 
         charCon.Move(movement * Time.deltaTime);
 
+        if (Input.GetMouseButtonDown(0))
+            Shoot();
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -80,6 +83,17 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
                 Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    private void Shoot()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        ray.origin = cam.transform.position;
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Debug.Log("We hit " + hit.collider.gameObject.name);
         }
     }
 
