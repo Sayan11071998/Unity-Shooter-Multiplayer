@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 8f;
     public float jumpForce = 12f;
     public float gravityMod = 2.5f;
+    public float timeBetweenShots = 0.1f;
     
     public bool invertLook = false;
 
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
     
     private float verticalRotStore;
     private float activeMoveSpeed;
+    private float shotCounter;
 
     private bool isGrounded;
 
@@ -76,6 +78,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             Shoot();
 
+        if (Input.GetMouseButton(0))
+        {
+            shotCounter -= Time.deltaTime;
+            if (shotCounter <= 0)
+                Shoot();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -99,6 +108,8 @@ public class PlayerController : MonoBehaviour
             GameObject bulletImpactObject = Instantiate(bulletImpact, hit.point + (hit.normal * 0.002f), Quaternion.LookRotation(hit.normal, Vector3.up));
             Destroy(bulletImpactObject, 10f);
         }
+
+        shotCounter = timeBetweenShots;
     }
 
     private void LateUpdate()
