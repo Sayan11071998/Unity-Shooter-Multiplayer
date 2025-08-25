@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public Transform viewPoint;
     public Transform groundCheckPoint;
     public LayerMask groundLayers;
+    public GameObject bulletImpact;
     
     public float mouseSensitivity = 1f;
     public float moveSpeed = 5f;
@@ -94,6 +95,9 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Debug.Log("We hit " + hit.collider.gameObject.name);
+
+            GameObject bulletImpactObject = Instantiate(bulletImpact, hit.point + (hit.normal * 0.002f), Quaternion.LookRotation(hit.normal, Vector3.up));
+            Destroy(bulletImpactObject, 10f);
         }
     }
 
