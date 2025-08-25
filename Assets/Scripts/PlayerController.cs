@@ -6,12 +6,18 @@ public class PlayerController : MonoBehaviour
     public Transform viewPoint;
     public Transform groundCheckPoint;
     public LayerMask groundLayers;
+    public GameObject bulletImpact;
     
     public float mouseSensitivity = 1f;
     public float moveSpeed = 5f;
     public float runSpeed = 8f;
     public float jumpForce = 12f;
     public float gravityMod = 2.5f;
+    public float timeBetweenShots = 0.1f;
+    public float maxHit = 10f;
+    public float heatPerShot = 1f;
+    public float coolRate = 4f;
+    public float overHitCoolRate = 5f;
     
     public bool invertLook = false;
 
@@ -24,8 +30,11 @@ public class PlayerController : MonoBehaviour
     
     private float verticalRotStore;
     private float activeMoveSpeed;
+    private float shotCounter;
+    private float heatCounter;
 
     private bool isGrounded;
+    private bool overHeated;
 
     private void Start()
     {
@@ -72,6 +81,31 @@ public class PlayerController : MonoBehaviour
 
         charCon.Move(movement * Time.deltaTime);
 
+        if (!overHeated)
+        {
+            if (Input.GetMouseButtonDown(0))
+                Shoot();
+
+            if (Input.GetMouseButton(0))
+            {
+                shotCounter -= Time.deltaTime;
+                if (shotCounter <= 0f)
+                    Shoot();
+            }
+
+            heatCounter -= coolRate * Time.deltaTime;
+        }
+        else
+        {
+            heatCounter -= overHitCoolRate * Time.deltaTime;
+
+            if (heatCounter <= 0f)
+                overHeated = false;
+        }
+
+        if (heatCounter < 0f)
+            heatCounter = 0f;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
@@ -80,6 +114,27 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
                 Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    private void Shoot()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        ray.origin = cam.transform.position;
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            GameObject bulletImpactObject = Instantiate(bulletImpact, hit.point + (hit.normal * 0.002f), Quaternion.LookRotation(hit.normal, Vector3.up));
+            Destroy(bulletImpactObject, 10f);
+        }
+
+        shotCounter = timeBetweenShots;
+
+        heatCounter += heatPerShot;
+        if (heatCounter >= maxHit)
+        {
+            heatCounter = maxHit;
+            overHeated = true;
         }
     }
 
