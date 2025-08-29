@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         cam = Camera.main;
+        UIController.instance.weaponTempSlider.maxValue = maxHit;
     }
 
     private void Update()
@@ -108,6 +109,8 @@ public class PlayerController : MonoBehaviour
 
         if (heatCounter < 0f)
             heatCounter = 0f;
+
+        UIController.instance.weaponTempSlider.value = heatCounter;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
