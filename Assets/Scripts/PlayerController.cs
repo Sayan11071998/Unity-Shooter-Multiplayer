@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 8f;
     public float jumpForce = 12f;
     public float gravityMod = 2.5f;
-    public float timeBetweenShots = 0.1f;
+    //public float timeBetweenShots = 0.1f;
     public float maxHit = 10f;
-    public float heatPerShot = 1f;
+    //public float heatPerShot = 1f;
     public float coolRate = 4f;
     public float overHitCoolRate = 5f;
     
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
                 Shoot();
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && allGuns[selectedGun].isAutomatic)
             {
                 shotCounter -= Time.deltaTime;
                 if (shotCounter <= 0f)
@@ -157,9 +157,9 @@ public class PlayerController : MonoBehaviour
             Destroy(bulletImpactObject, 10f);
         }
 
-        shotCounter = timeBetweenShots;
+        shotCounter = allGuns[selectedGun].timeBetweenShots;
 
-        heatCounter += heatPerShot;
+        heatCounter += allGuns[selectedGun].heatPerShot;
         if (heatCounter >= maxHit)
         {
             heatCounter = maxHit;
