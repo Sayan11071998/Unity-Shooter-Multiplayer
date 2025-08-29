@@ -1889,6 +1889,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   bulletImpact: {fileID: 1788964707134130983, guid: ccec8d25c7a12f549a9fe0eed166e0f7, type: 3}
+  allGuns:
+  - {fileID: 1664265146}
+  - {fileID: 728247365}
+  - {fileID: 2135749886}
   mouseSensitivity: 1
   moveSpeed: 5
   runSpeed: 8
