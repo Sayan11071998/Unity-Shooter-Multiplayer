@@ -46,6 +46,10 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         UIController.instance.weaponTempSlider.maxValue = maxHit;
         SwitchGun();
+
+        Transform newTrans = SpawnManager.instance.GetSpawnPoint();
+        transform.position = newTrans.position;
+        transform.rotation = newTrans.rotation;
     }
 
     private void Update()
