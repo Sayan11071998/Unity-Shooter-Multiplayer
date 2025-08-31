@@ -131,6 +131,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Leave Button
       objectReference: {fileID: 0}
+    - target: {fileID: 5804634334152121186, guid: 0ddbc8c73efbff24d8a7cd1171701666, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 303490768}
+    - target: {fileID: 5804634334152121186, guid: 0ddbc8c73efbff24d8a7cd1171701666, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeaveRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804634334152121186, guid: 0ddbc8c73efbff24d8a7cd1171701666, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Launcher, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804634334152121186, guid: 0ddbc8c73efbff24d8a7cd1171701666, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7239666168748213313, guid: 0ddbc8c73efbff24d8a7cd1171701666, type: 3}
       propertyPath: m_text
       value: Leave Room
